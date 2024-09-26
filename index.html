@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario con Bootstrap y Validación en HTML</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery and jQuery Validation -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.2/jquery.validate.min.js"></script>
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Formulario de Contacto</h2>
+    <form id="contactForm" class="needs-validation" novalidate>
+        <!-- Campo de Nombre -->
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese su nombre" required>
+            <small class="form-text text-muted" id="nameMessage"></small>
+        </div>
+        
+        <!-- Campo de Teléfono -->
+        <div class="form-group">
+            <label for="phone">Teléfono</label>
+            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Ingrese su teléfono" required>
+            <small class="form-text text-muted" id="phoneMessage"></small>
+        </div>
+        
+        <!-- Campo de Dirección -->
+        <div class="form-group">
+            <label for="address">Dirección</label>
+            <input type="text" class="form-control" id="address" name="address" placeholder="Ingrese su dirección" required>
+            <small class="form-text text-muted" id="addressMessage"></small>
+        </div>
+        
+        <!-- Campo de Departamento -->
+        <div class="form-group">
+            <label for="department">Departamento</label>
+            <input type="text" class="form-control" id="department" name="department" placeholder="Ingrese su departamento" required>
+            <small class="form-text text-muted" id="departmentMessage"></small>
+        </div>
+        
+        <!-- Campo de Ciudad -->
+        <div class="form-group">
+            <label for="city">Ciudad</label>
+            <input type="text" class="form-control" id="city" name="city" placeholder="Ingrese su ciudad" required>
+            <small class="form-text text-muted" id="cityMessage"></small>
+        </div>
+
+        <!-- Botón de Envío -->
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+
+    <!-- Resultado de la validación -->
+    <div id="resultMessage" class="mt-3"></div>
+</div>
+
+<!-- jQuery Validation Script -->
+<script>
+$(document).ready(function() {
+    $("#contactForm").on("submit", function(event) {
+        event.preventDefault();  // Evitar el envío del formulario hasta que esté validado
+
+        let isValid = true;
+
+        // Limpiar mensajes previos
+        $("#nameMessage, #phoneMessage, #addressMessage, #departmentMessage, #cityMessage, #resultMessage").text("");
+
+        // Validación del campo Nombre
+        if ($("#name").val().trim() === "") {
+            $("#nameMessage").text("El campo nombre es requerido.").css("color", "red");
+            isValid = false;
+        } else {
+            $("#nameMessage").text("El campo nombre está completo.").css("color", "green");
+        }
+
+        // Validación del campo Teléfono
+        if ($("#phone").val().trim() === "") {
+            $("#phoneMessage").text("El campo teléfono es requerido.").css("color", "red");
+            isValid = false;
+        } else if (!/^\d{8,15}$/.test($("#phone").val())) {
+            $("#phoneMessage").text("El teléfono debe contener entre 8 y 15 números.").css("color", "red");
+            isValid = false;
+        } else {
+            $("#phoneMessage").text("El campo teléfono está completo.").css("color", "green");
+        }
+
+        // Validación del campo Dirección
+        if ($("#address").val().trim() === "") {
+            $("#addressMessage").text("El campo dirección es requerido.").css("color", "red");
+            isValid = false;
+        } else {
+            $("#addressMessage").text("El campo dirección está completo.").css("color", "green");
+        }
+
+        // Validación del campo Departamento
+        if ($("#department").val().trim() === "") {
+            $("#departmentMessage").text("El campo departamento es requerido.").css("color", "red");
+            isValid = false;
+        } else {
+            $("#departmentMessage").text("El campo departamento está completo.").css("color", "green");
+        }
+
+        // Validación del campo Ciudad
+        if ($("#city").val().trim() === "") {
+            $("#cityMessage").text("El campo ciudad es requerido.").css("color", "red");
+            isValid = false;
+        } else {
+            $("#cityMessage").text("El campo ciudad está completo.").css("color", "green");
+        }
+
+        // Mostrar resultado final
+        if (isValid) {
+            $("#resultMessage").html('<div class="alert alert-success">Formulario enviado exitosamente.</div>');
+        } else {
+            $("#resultMessage").html('<div class="alert alert-danger">Por favor, complete todos los campos correctamente.</div>');
+        }
+    });
+});
+</script>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<!--Algunos cambios-->
